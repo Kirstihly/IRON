@@ -536,6 +536,8 @@ for global_step in tqdm.tqdm(range(start_step + 1, args.num_iters)):
             diffuse_color_im = np.power(diffuse_color_im + 1e-6, 1.0 / 2.2)
             specular_color_im = color_im - diffuse_color_im
 
+        if gt_color_im.shape[2] == 4:
+            gt_color_im = gt_color_im[:,:,:3]
         row1 = np.concatenate([gt_color_im, normal_im, edge_mask_im], axis=1)
         row2 = np.concatenate([color_im, diffuse_color_im, specular_color_im], axis=1)
         row3 = np.concatenate([diffuse_albedo_im, specular_albedo_im, specular_roughness_im], axis=1)
